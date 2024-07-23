@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script 
+src="https://unpkg.com/@esotericsoftware/spine-phaser@4.1.*/dist/iife/spine-phaser.js">
+    </script>
+</head>
+<body>
+    <script>
+
+        class Example extends Phaser.Scene {
+            constructor() {
+                super();
+            }
+
+            preload() {
+               this.load.spineAtlas('set1-atlas','berseker.atlas');
+               this.load.spineJson('set1-data', 'berseker.skel');
+            }
+
+            create() {
+                let beserker = this.add.spine(400, 600, 'set1-data', 'set1-atlas');
+                beserker.animationState.setAnimation(0, "idle", true);
+            }
+        }
+
+        const config = {
+            type: Phaser.WEBGL,
+            width: 800,
+            height: 600,
+            scene: Example,
+            plugins: {
+                scene: [
+                    {  key: "spine.SpinePlugin", plugin: spine.SpinePlugin, mapping: "spine" }
+                ]
+            },
+        };
+        const game = new Phaser.Game(config);
+    </script>
+</body>
+</html>
